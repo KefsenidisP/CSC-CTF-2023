@@ -15,18 +15,11 @@ int main(int argc, char* argv[])
 	void (*make_call)(void) = NULL;
 	char num[32];
 
-	if(argc < 2)
-	{
-		printf("You need to decide whom to call first!\n");
-		printf("You have 2 numbers saved on your phone: ");
-		printf("%x, %x", call_me, main);
-
-		printf("\nUsage: ./callme <input>\n");
-
-		return 0;
-	}
+	printf("You have 2 numbers saved on your phone: ");
+	printf("%x, %x\n", call_me, main);
 		
-	strcpy(num, argv[1]);
+	printf("> ");
+	gets(num);
 	
 	printf("Call pending...\n");
 
