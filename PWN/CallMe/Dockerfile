@@ -1,5 +1,5 @@
 # sudo docker build -t callme .
-# sudo docker run -d -p 1024:1024 --rm -it callme
+# sudo docker run -d -p 32021:32021 --rm -it callme
 # with the --rm, used, for deleting the container.
 
 FROM ubuntu:latest

