@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Ignore this function
+void _buf_setup(void) {
+	setvbuf(stdout, NULL, _IONBF, 0);
+	setvbuf(stdin, NULL, _IONBF, 0);
+	setvbuf(stderr, NULL, _IONBF, 0);
+}
+
 void setup(void)
 {
 	puts("So you've made it thus far, but do you have what it takes to get  the shell?\nAnd also, all of the flags? (and solutions)\nI am looking forward to it\nYou are tasked with defeating the csc pwn boss!\n");
@@ -79,6 +86,7 @@ int main(int argc, char *argv[])
 	char warcry[16];
 	int prepared = 0;
 
+	_buf_setup();
 	setup();
 
 	while(1)

@@ -2,25 +2,31 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Ignore this function
+void _buf_setup(void) {
+	setvbuf(stdout, NULL, _IONBF, 0);
+	setvbuf(stdin, NULL, _IONBF, 0);
+	setvbuf(stderr, NULL, _IONBF, 0);
+}
+
 int main(int argc, char* argv[])
 {	
 	char* msg = "Select a file stream to write.\n";
-	char* note = "Usage: ./streaming <file stream>";
+	char txt[4];
 
-	if(argc < 2)
-	{
-		write(0, msg, strlen(msg));
-		write(0, note, strlen(note));
-		
-		return 0;
-	}
+	_buf_setup();
 
-	int fd = atoi(argv[1]);
+	write(0, msg, strlen(msg));
+
+
+	fgets(txt, 4, stdin);
+	
+	int fd = atoi(txt);
 	char buf[32];
 
 	read(fd, buf, 0x20);
 
-	if(strcmp(buf, "LETMEIN!\n"))
+	if(!strcmp(buf, "I SHALL PASS!\n"))
 	{	
 		char* inmsg = "You are in!\n";
 
