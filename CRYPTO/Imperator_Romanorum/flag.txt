@@ -1,1 +1,3 @@
-CSC{C43s4r_4n_3mp3r0r_I_think_n07}
+CSC{CaesarAnEmperorIThinkNot}
+
+Note: CSC{} is not part of the encrypted flag.
