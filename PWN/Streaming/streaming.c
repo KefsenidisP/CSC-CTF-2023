@@ -12,16 +12,14 @@ void _buf_setup(void) {
 int main(int argc, char* argv[])
 {	
 	char* msg = "Select a file stream to write.\n";
-	char txt[4];
+	int fd;
 
 	_buf_setup();
 
 	write(0, msg, strlen(msg));
 
-
-	fgets(txt, 4, stdin);
+	scanf("%d", &fd);
 	
-	int fd = atoi(txt);
 	char buf[32];
 
 	read(fd, buf, 0x20);

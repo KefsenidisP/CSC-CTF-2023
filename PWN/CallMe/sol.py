@@ -1,7 +1,7 @@
 from pwn import *
 
-IP = "127.0.0.1"
-PORT = 32021
+IP = "0.cloud.chals.io"
+PORT = 28022
 
 elf = context.binary = ELF("callme")
 
