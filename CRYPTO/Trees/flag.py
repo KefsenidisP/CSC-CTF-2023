@@ -1,0 +1,1 @@
+FLAG = "CSC{pl4n7_4_s33d_4nd_y0u_g37_4_tr33}"
